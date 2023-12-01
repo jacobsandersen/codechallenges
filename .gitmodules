@@ -1,0 +1,3 @@
+[submodule "src/main/resources/inputdata"]
+	path = src/main/resources/inputdata
+	url = git@github.com:simpleauthority/codechallenge-inputdata.git
