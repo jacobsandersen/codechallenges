@@ -12,7 +12,16 @@ public class AdventOfCodeBootstrap {
         new AdventOfCodeBootstrap().run();
     }
 
+    private static class Dummy {
+        void m() {}
+    }
+
     public void run() {
+        // jvm warmup
+        for (int i = 0; i < 1_000_000; i++) {
+            new Dummy().m();
+        }
+
         Year2020.getDays().forEach(Day::run);
         Year2022.getDays().forEach(Day::run);
         Year2023.getDays().forEach(Day::run);

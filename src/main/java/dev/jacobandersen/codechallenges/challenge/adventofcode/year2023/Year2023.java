@@ -1,6 +1,11 @@
 package dev.jacobandersen.codechallenges.challenge.adventofcode.year2023;
 
 import dev.jacobandersen.codechallenges.challenge.adventofcode.Day;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day1.Day1;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day2.Day2;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day3.Day3;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day4.Day4;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day5.Day5;
 
 import java.util.List;
 

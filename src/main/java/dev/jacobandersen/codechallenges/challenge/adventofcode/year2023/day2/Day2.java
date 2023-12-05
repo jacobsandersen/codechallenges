@@ -1,4 +1,4 @@
-package dev.jacobandersen.codechallenges.challenge.adventofcode.year2023;
+package dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day2;
 
 import dev.jacobandersen.codechallenges.challenge.adventofcode.Day;
 
