@@ -12,10 +12,8 @@ public record Map(String name, List<MapEntry> entries) {
 
     public long get(long key) {
         for (MapEntry entry : entries) {
-            long sourceLow = entry.sourceStart();
-            long sourceHigh = entry.sourceStart() + entry.rangeLength() - 1;
-            if (sourceLow <= key && key <= sourceHigh) {
-                long distance = key - sourceLow;
+            if (entry.sourceStart() <= key && key <= entry.sourceEnd()) {
+                long distance = key - entry.sourceStart();
                 return entry.destinationStart() + distance;
             }
         }
@@ -25,10 +23,8 @@ public record Map(String name, List<MapEntry> entries) {
 
     public long getKey(long value) {
         for (MapEntry entry : entries) {
-            long destinationLow = entry.destinationStart();
-            long destinationHigh = destinationLow + entry.rangeLength() - 1;
-            if (destinationLow <= value && value <= destinationHigh) {
-                long distance = value - destinationLow;
+            if (entry.destinationStart() <= value && value <= entry.destinationEnd()) {
+                long distance = value - entry.destinationStart();
                 return entry.sourceStart() + distance;
             }
         }
@@ -37,7 +33,7 @@ public record Map(String name, List<MapEntry> entries) {
     }
 
     public LongStream getAllValues() {
-        long highestDestination = entries.stream().map(entry -> entry.destinationStart() + entry.rangeLength()).max(Long::compareTo).orElseThrow();
+        long highestDestination = entries.stream().map(MapEntry::destinationEnd).max(Long::compareTo).orElseThrow();
         return LongStream.range(0, highestDestination).sorted();
     }
 }
