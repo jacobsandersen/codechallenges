@@ -4,65 +4,57 @@ import dev.jacobandersen.codechallenges.challenge.adventofcode.Day;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Day1 extends Day {
-    private static final Map<String, String> name2digit = new HashMap<>();
+    private static final Pattern part1PatternSingle = Pattern.compile(".*?(\\d).*");
+    private static final Pattern part1PatternBoth = Pattern.compile(".*?(\\d).*(\\d).*");
+    private static final Pattern part2PatternSingle = Pattern.compile(".*?(\\d|one|two|three|four|five|six|seven|eight|nine).*");
+    private static final Pattern part2PatternBoth = Pattern.compile(".*?(\\d|one|two|three|four|five|six|seven|eight|nine).*(\\d|one|two|three|four|five|six|seven|eight|nine).*");
+    private static final Map<String, Integer> lookupTable = new HashMap<>();
 
     static {
-        name2digit.put("one", "1");
-        name2digit.put("two", "2");
-        name2digit.put("three", "3");
-        name2digit.put("four", "4");
-        name2digit.put("five", "5");
-        name2digit.put("six", "6");
-        name2digit.put("seven", "7");
-        name2digit.put("eight", "8");
-        name2digit.put("nine", "9");
-    }
-
-    private String findNumberInString(String substring, boolean considerWords) {
-        try {
-            Integer.parseInt(substring);
-            return substring;
-        } catch (NumberFormatException ex) {
-            if (considerWords) {
-                return name2digit.get(substring);
-            }
-
-            return null;
-        }
-    }
-
-    private int firstForwardMatch(String str, boolean considerWords) {
-        for (int i = 0; i < str.length(); i++) {
-            for (int j = i; j < str.length(); j++) {
-                String maybeMatch = findNumberInString(str.substring(i, j + 1), considerWords);
-                if (maybeMatch != null) {
-                    return Integer.parseInt(maybeMatch);
-                }
-            }
-        }
-
-        throw new IllegalStateException("Didn't find a match. Invalid string.");
-    }
-
-    private int firstReverseMatch(String str, boolean considerWords) {
-        for (int i = str.length() - 1; i >= 0; i--) {
-            for (int j = i; j >= 0; j--) {
-                String maybeMatch = findNumberInString(str.substring(j, i + 1), considerWords);
-                if (maybeMatch != null) {
-                    return Integer.parseInt(maybeMatch);
-                }
-            }
-        }
-
-        throw new IllegalStateException("Didn't find a match. Invalid string.");
+        lookupTable.put("1", 1);
+        lookupTable.put("one", 1);
+        lookupTable.put("2", 2);
+        lookupTable.put("two", 2);
+        lookupTable.put("3", 3);
+        lookupTable.put("three", 3);
+        lookupTable.put("4", 4);
+        lookupTable.put("four", 4);
+        lookupTable.put("5", 5);
+        lookupTable.put("five", 5);
+        lookupTable.put("6", 6);
+        lookupTable.put("six", 6);
+        lookupTable.put("7", 7);
+        lookupTable.put("seven", 7);
+        lookupTable.put("8", 8);
+        lookupTable.put("eight", 8);
+        lookupTable.put("9", 9);
+        lookupTable.put("nine", 9);
     }
 
     private int getDigitFromString(String str, boolean considerWords) {
-        int first = firstForwardMatch(str, considerWords);
-        int last = firstReverseMatch(str, considerWords);
-        return Integer.parseInt(String.format("%d%d", first, last));
+        Matcher matcher = considerWords ? part2PatternBoth.matcher(str) : part1PatternBoth.matcher(str);
+        if (matcher.find()) {
+            return Integer.parseInt(String.format(
+                    "%d%d",
+                    lookupTable.get(matcher.group(1)),
+                    lookupTable.get(matcher.group(2)))
+            );
+        } else {
+            matcher = considerWords ? part2PatternSingle.matcher(str) : part1PatternSingle.matcher(str);
+            if (matcher.find()) {
+                return Integer.parseInt(String.format(
+                        "%d%d",
+                        lookupTable.get(matcher.group(1)),
+                        lookupTable.get(matcher.group(1)))
+                );
+            } else {
+                throw new IllegalStateException("String did not match pattern - invalid input");
+            }
+        }
     }
 
     private int solution(boolean considerWords) {

@@ -5,7 +5,6 @@ import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day1.Day
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day2.Day2;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day3.Day3;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day4.Day4;
-import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day5.Day5;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day6.Day6;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day7.Day7;
 
