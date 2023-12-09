@@ -2,6 +2,7 @@ package dev.jacobandersen.codechallenges.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
@@ -33,5 +34,21 @@ public class CombinatoricsUtil {
     public static <T> Collection<List<T>> partitionList(List<T> list, int numPerPartition) {
         AtomicInteger numPartitions = new AtomicInteger(0);
         return list.stream().collect(Collectors.groupingBy(item -> numPartitions.getAndIncrement() / numPerPartition)).values();
+    }
+
+    public static <T> List<List<T>> overlappingPartitionList(List<T> list, int numPerPartition) {
+        AtomicInteger start = new AtomicInteger(0);
+
+        return list.stream()
+                .map(item -> {
+                    int currentIndex = start.getAndIncrement();
+                    int endIndex = Math.min(currentIndex + numPerPartition, list.size());
+                    if (endIndex - currentIndex < numPerPartition) {
+                        return new ArrayList<T>();
+                    }
+                    return new ArrayList<>(list.subList(currentIndex, endIndex));
+                })
+                .filter(l -> !l.isEmpty())
+                .collect(Collectors.toList());
     }
 }
