@@ -2,6 +2,7 @@ package dev.jacobandersen.codechallenges.challenge.adventofcode.year2023;
 
 import dev.jacobandersen.codechallenges.challenge.adventofcode.Day;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day1.Day1;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day10.Day10;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day2.Day2;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day3.Day3;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day4.Day4;
@@ -22,7 +23,8 @@ public class Year2023 {
                 new Day6(),
                 new Day7(),
                 new Day8(),
-                new Day9()
+                new Day9(),
+                new Day10()
         );
     }
 }

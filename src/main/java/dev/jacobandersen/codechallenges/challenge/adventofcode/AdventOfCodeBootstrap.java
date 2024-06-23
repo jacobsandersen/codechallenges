@@ -24,8 +24,8 @@ public class AdventOfCodeBootstrap {
         }
 
         Year2015.getDays().forEach(Day::run);
-//        Year2020.getDays().forEach(Day::run);
-//        Year2022.getDays().forEach(Day::run);
-//        Year2023.getDays().forEach(Day::run);
+        Year2020.getDays().forEach(Day::run);
+        Year2022.getDays().forEach(Day::run);
+        Year2023.getDays().forEach(Day::run);
     }
 }
