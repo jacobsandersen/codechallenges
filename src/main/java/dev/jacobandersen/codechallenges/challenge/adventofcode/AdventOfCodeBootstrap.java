@@ -24,10 +24,10 @@ public class AdventOfCodeBootstrap {
             new Dummy().m();
         }
 
-//        Year2015.getDays().forEach(Day::run);
+        Year2015.getDays().forEach(Day::run);
 //        Year2020.getDays().forEach(Day::run);
 //        Year2022.getDays().forEach(Day::run);
 //        Year2023.getDays().forEach(Day::run);
-        Year2024.getDays().forEach(Day::run);
+//        Year2024.getDays().forEach(Day::run);
     }
 }
