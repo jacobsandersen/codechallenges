@@ -6,21 +6,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Grid<T> {
-    public static <T> Grid<T> create(Stream<String> input, Function<String, List<T>> mapper) {
-        final List<List<T>> grid = input.map(mapper).collect(Collectors.toList());
-        if (!grid.stream().map(List::size).allMatch(size -> grid.get(0).size() == size)) {
-            throw new IllegalArgumentException("Received grid had rows with varying columns - invalid");
-        }
-
-        return new Grid<>(grid.size(), grid.get(0).size(), grid);
-    }
-
     private final int rows;
     private final int cols;
+    private final List<List<T>> grid;
     private int currentRow;
     private int currentCol;
-    private final List<List<T>> grid;
-
     public Grid(int rows, int cols, List<List<T>> grid) {
         this(rows, cols, 0, 0, grid);
     }
@@ -31,6 +21,15 @@ public class Grid<T> {
         this.currentRow = currentRow;
         this.currentCol = currentCol;
         this.grid = grid;
+    }
+
+    public static <T> Grid<T> create(Stream<String> input, Function<String, List<T>> mapper) {
+        final List<List<T>> grid = input.map(mapper).collect(Collectors.toList());
+        if (!grid.stream().map(List::size).allMatch(size -> grid.get(0).size() == size)) {
+            throw new IllegalArgumentException("Received grid had rows with varying columns - invalid");
+        }
+
+        return new Grid<>(grid.size(), grid.get(0).size(), grid);
     }
 
     public int getRows() {

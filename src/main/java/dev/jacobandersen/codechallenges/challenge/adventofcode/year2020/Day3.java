@@ -50,8 +50,8 @@ public class Day3 extends Day {
     public String partTwo() {
         final List<List<Boolean>> data = buildInput();
 
-        return String.valueOf(Stream.of(new int[]{1,1}, new int[]{3,1}, new int[]{5,1}, new int[]{7,1}, new int[]{1,2})
+        return String.valueOf(Stream.of(new int[]{1, 1}, new int[]{3, 1}, new int[]{5, 1}, new int[]{7, 1}, new int[]{1, 2})
                 .map(slope -> countTrees(data, slope[0], slope[1]))
-                .reduce(1L, (x, y) -> x*y));
+                .reduce(1L, (x, y) -> x * y));
     }
 }

@@ -17,7 +17,7 @@ public class Day1 extends Day {
 
         getInputLinesStreamNoBlanks()
                 .map(line -> line.replaceAll(" +", " ").split(" "))
-                .map(arr -> new Integer[] { Integer.parseInt(arr[0]), Integer.parseInt(arr[1]) })
+                .map(arr -> new Integer[]{Integer.parseInt(arr[0]), Integer.parseInt(arr[1])})
                 .forEach(arr -> {
                     a.add(arr[0]);
                     b.add(arr[1]);

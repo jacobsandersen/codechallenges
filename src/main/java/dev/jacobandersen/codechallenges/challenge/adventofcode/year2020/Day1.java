@@ -16,7 +16,7 @@ public class Day1 extends Day {
                 .stream()
                 .filter(pair -> pair.get(0) + pair.get(1) == 2020)
                 .flatMap(Collection::stream)
-                .reduce(1, (x,y) -> x*y));
+                .reduce(1, (x, y) -> x * y));
     }
 
     @Override
@@ -25,6 +25,6 @@ public class Day1 extends Day {
                 .stream()
                 .filter(pair -> pair.get(0) + pair.get(1) + pair.get(2) == 2020)
                 .flatMap(Collection::stream)
-                .reduce(1, (x,y) -> x*y));
+                .reduce(1, (x, y) -> x * y));
     }
 }

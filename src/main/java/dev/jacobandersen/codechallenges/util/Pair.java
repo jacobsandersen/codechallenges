@@ -1,6 +1,6 @@
 package dev.jacobandersen.codechallenges.util;
 
-public class Pair<T,R> {
+public class Pair<T, R> {
     private final T first;
     private final R second;
 

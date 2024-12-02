@@ -35,6 +35,10 @@ public class Day1 extends Day {
         lookupTable.put("nine", 9);
     }
 
+    public Day1() {
+        super(2023, 1, "Trebuchet");
+    }
+
     private int getDigitFromString(String str, boolean considerWords) {
         Matcher matcher = considerWords ? part2PatternBoth.matcher(str) : part1PatternBoth.matcher(str);
         if (matcher.find()) {
@@ -62,10 +66,6 @@ public class Day1 extends Day {
                 .filter(line -> !line.isBlank())
                 .map(line -> getDigitFromString(line, considerWords))
                 .reduce(0, Integer::sum);
-    }
-
-    public Day1() {
-        super(2023, 1, "Trebuchet");
     }
 
     @Override

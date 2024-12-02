@@ -2,11 +2,7 @@ package dev.jacobandersen.codechallenges.challenge.rosalind.string_algorithms;
 
 import dev.jacobandersen.codechallenges.challenge.rosalind.Challenge;
 import dev.jacobandersen.codechallenges.challenge.rosalind.Topic;
-import dev.jacobandersen.codechallenges.challenge.rosalind.string_algorithms.problem.Problem1_CountingDNANucleotides;
-import dev.jacobandersen.codechallenges.challenge.rosalind.string_algorithms.problem.Problem2_TranscribingDNAIntoRNA;
-import dev.jacobandersen.codechallenges.challenge.rosalind.string_algorithms.problem.Problem3_ComplementingAStrandOfDNA;
-import dev.jacobandersen.codechallenges.challenge.rosalind.string_algorithms.problem.Problem4_ComputingGCContent;
-import dev.jacobandersen.codechallenges.challenge.rosalind.string_algorithms.problem.Problem5_FindingAMotifInDNA;
+import dev.jacobandersen.codechallenges.challenge.rosalind.string_algorithms.problem.*;
 
 import java.util.List;
 

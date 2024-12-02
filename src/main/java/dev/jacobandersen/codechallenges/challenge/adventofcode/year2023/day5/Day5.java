@@ -3,12 +3,7 @@ package dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day5;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.Day;
 import dev.jacobandersen.codechallenges.util.CombinatoricsUtil;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.PrimitiveIterator;
+import java.util.*;
 import java.util.stream.LongStream;
 
 public class Day5 extends Day {
@@ -92,7 +87,7 @@ public class Day5 extends Day {
             for (Map map : maps) {
                 value = map.getKey(value);
             }
-            
+
             if (isOriginalSeed(seedRanges, value)) {
                 return String.valueOf(next);
             }

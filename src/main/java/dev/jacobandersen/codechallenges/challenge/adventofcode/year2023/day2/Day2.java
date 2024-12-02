@@ -74,7 +74,8 @@ public class Day2 extends Day {
                 .reduce(0, Integer::sum));
     }
 
-    record Game(int id, Set<GameSet> sets) {}
+    record Game(int id, Set<GameSet> sets) {
+    }
 
     static class GameSet {
         private int red = 0;

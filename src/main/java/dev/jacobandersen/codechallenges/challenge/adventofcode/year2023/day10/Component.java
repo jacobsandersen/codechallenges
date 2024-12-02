@@ -26,6 +26,10 @@ public record Component(int y, int x, Type type) {
             this.validDirections = validDirections;
         }
 
+        public static Type fromSymbol(char symbol) {
+            return Arrays.stream(values()).filter(value -> value.symbol == symbol).findFirst().orElseThrow();
+        }
+
         public char getSymbol() {
             return symbol;
         }
@@ -40,10 +44,6 @@ public record Component(int y, int x, Type type) {
             }
 
             return new HashSet<>(getValidDirections()).stream().filter(dir -> dir != from).findFirst().orElseThrow();
-        }
-
-        public static Type fromSymbol(char symbol) {
-            return Arrays.stream(values()).filter(value -> value.symbol == symbol).findFirst().orElseThrow();
         }
     }
 }

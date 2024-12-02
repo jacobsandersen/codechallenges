@@ -17,6 +17,7 @@ public abstract class Problem {
     }
 
     public abstract String getInputPath();
+
     public final File getInputFile() {
         final String inputPath = getInputPath();
 

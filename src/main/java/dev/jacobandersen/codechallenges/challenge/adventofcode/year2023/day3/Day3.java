@@ -108,7 +108,7 @@ public class Day3 extends Day {
 
     record Symbol(String symbol, int x, int y) {
         int[][] getAdjacentPositions() {
-            return new int[][] {
+            return new int[][]{
                     {x - 1, y - 1},
                     {x, y - 1},
                     {x + 1, y - 1},

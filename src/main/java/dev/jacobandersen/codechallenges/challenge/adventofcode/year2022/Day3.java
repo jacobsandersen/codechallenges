@@ -24,7 +24,7 @@ public class Day3 extends Day {
     public String partOne() {
         return String.valueOf(getInputLinesStream()
                 .filter(line -> !line.isBlank())
-                .map(line -> List.of(stringToCharSet(line.substring(0, line.length()/2)), stringToCharSet(line.substring(line.length()/2))))
+                .map(line -> List.of(stringToCharSet(line.substring(0, line.length() / 2)), stringToCharSet(line.substring(line.length() / 2))))
                 .flatMap(sets -> {
                     Set<Character> firstHalf = sets.get(0);
                     firstHalf.retainAll(sets.get(1));
@@ -45,7 +45,7 @@ public class Day3 extends Day {
         List<String> inputLines = getInputLinesStream().filter(line -> !line.isBlank()).toList();
 
         List<List<String>> groups = new ArrayList<>();
-        for (int i = 0; i < inputLines.size(); i+=3) {
+        for (int i = 0; i < inputLines.size(); i += 3) {
             groups.add(List.of(inputLines.get(i), inputLines.get(i + 1), inputLines.get(i + 2)));
         }
 

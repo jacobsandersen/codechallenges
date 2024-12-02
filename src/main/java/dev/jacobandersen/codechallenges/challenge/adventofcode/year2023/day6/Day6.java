@@ -47,7 +47,7 @@ public class Day6 extends Day {
 
     @Override
     public String partOne() {
-        return String.valueOf(getRaces().stream().map(this::calculateWaysToWin).reduce(1, (x,y) -> x * y));
+        return String.valueOf(getRaces().stream().map(this::calculateWaysToWin).reduce(1, (x, y) -> x * y));
     }
 
     @Override

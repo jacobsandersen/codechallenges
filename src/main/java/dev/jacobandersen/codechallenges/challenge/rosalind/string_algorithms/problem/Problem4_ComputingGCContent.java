@@ -21,7 +21,7 @@ public class Problem4_ComputingGCContent extends StringAlgorithmChallenge {
         for (String line : lines) {
             if (line.startsWith(">")) {
                 curId = line.substring(1);
-                numGCMap.put(curId, new Long[]{0L,0L});
+                numGCMap.put(curId, new Long[]{0L, 0L});
                 continue;
             }
 
@@ -39,7 +39,7 @@ public class Problem4_ComputingGCContent extends StringAlgorithmChallenge {
         return String.valueOf(numGCMap.entrySet().stream()
                 .map(entry -> Map.entry(
                         entry.getKey(),
-                        ((double)entry.getValue()[0]/entry.getValue()[1]) * 100
+                        ((double) entry.getValue()[0] / entry.getValue()[1]) * 100
                 ))
                 .max(Comparator.comparingDouble(Map.Entry::getValue))
                 .stream().findFirst().orElseThrow());

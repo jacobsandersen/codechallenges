@@ -22,7 +22,7 @@ public class Day4 extends Day {
         return String.valueOf(getCards().values().stream()
                 .map(set -> set.card)
                 .map(Card::getWinningNumbers)
-                .map(winning -> (int)Math.pow(2, winning.size() - 1))
+                .map(winning -> (int) Math.pow(2, winning.size() - 1))
                 .reduce(0, Integer::sum));
     }
 

@@ -20,6 +20,10 @@ public class Day1InitialSlow extends Day {
         name2digit.put("nine", "9");
     }
 
+    public Day1InitialSlow() {
+        super(2023, 1, "Trebuchet");
+    }
+
     private String findNumberInString(String substring, boolean considerWords) {
         try {
             Integer.parseInt(substring);
@@ -70,10 +74,6 @@ public class Day1InitialSlow extends Day {
                 .filter(line -> !line.isBlank())
                 .map(line -> getDigitFromString(line, considerWords))
                 .reduce(0, Integer::sum);
-    }
-
-    public Day1InitialSlow() {
-        super(2023, 1, "Trebuchet");
     }
 
     @Override

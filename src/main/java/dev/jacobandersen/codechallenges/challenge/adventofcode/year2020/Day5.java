@@ -54,79 +54,79 @@ public class Day5 extends Day {
 
     private record BoardingPass(String seatPath) {
         public Seat getSeat() {
-                return new Seat(
-                        getRow(seatPath.substring(0, 7)),
-                        getColumn(seatPath.substring(7, 10))
-                );
-            }
-
-            private int getRow(String rowPath) {
-                return followPath(rowPath, 127, 'F', 'B');
-            }
-
-            private int getColumn(String columnPath) {
-                return followPath(columnPath, 7, 'L', 'R');
-            }
-
-            private int followPath(String path, int upperBound, char lowerInstruction, char upperInstruction) {
-                SpacePartition partition = new SpacePartition(0, upperBound);
-
-                char[] chars = path.toCharArray();
-                for (char c : chars) {
-                    if (c == lowerInstruction) {
-                        partition = partition.takeLowerHalf();
-                    } else if (c == upperInstruction) {
-                        partition = partition.takeUpperHalf();
-                    }
-                }
-
-                return partition.middle();
-            }
+            return new Seat(
+                    getRow(seatPath.substring(0, 7)),
+                    getColumn(seatPath.substring(7, 10))
+            );
         }
+
+        private int getRow(String rowPath) {
+            return followPath(rowPath, 127, 'F', 'B');
+        }
+
+        private int getColumn(String columnPath) {
+            return followPath(columnPath, 7, 'L', 'R');
+        }
+
+        private int followPath(String path, int upperBound, char lowerInstruction, char upperInstruction) {
+            SpacePartition partition = new SpacePartition(0, upperBound);
+
+            char[] chars = path.toCharArray();
+            for (char c : chars) {
+                if (c == lowerInstruction) {
+                    partition = partition.takeLowerHalf();
+                } else if (c == upperInstruction) {
+                    partition = partition.takeUpperHalf();
+                }
+            }
+
+            return partition.middle();
+        }
+    }
 
 
     private record Seat(int row, int column) {
         public int getId() {
-                return (row() * 8) + column();
-            }
-
-            @Override
-            public String toString() {
-                return "Seat{" +
-                        "row=" + row +
-                        ", column=" + column +
-                        ", id=" + getId() +
-                        '}';
-            }
+            return (row() * 8) + column();
         }
+
+        @Override
+        public String toString() {
+            return "Seat{" +
+                    "row=" + row +
+                    ", column=" + column +
+                    ", id=" + getId() +
+                    '}';
+        }
+    }
 
     private record SpacePartition(int min, int max) {
         public SpacePartition takeLowerHalf() {
-                if (max - min == 1) {
-                    return new SpacePartition(min, min);
-                }
-
-                return new SpacePartition(min, middle(false));
+            if (max - min == 1) {
+                return new SpacePartition(min, min);
             }
 
-            public SpacePartition takeUpperHalf() {
-                if (max - min == 1) {
-                    return new SpacePartition(max, max);
-                }
+            return new SpacePartition(min, middle(false));
+        }
 
-                return new SpacePartition(middle(true), max);
+        public SpacePartition takeUpperHalf() {
+            if (max - min == 1) {
+                return new SpacePartition(max, max);
             }
 
-            public int middle() {
-                return middle(false);
-            }
+            return new SpacePartition(middle(true), max);
+        }
 
-            public int middle(boolean roundUp) {
-                if (roundUp) {
-                    return ((min + max) + 1) / 2;
-                } else {
-                    return (min + max) / 2;
-                }
+        public int middle() {
+            return middle(false);
+        }
+
+        public int middle(boolean roundUp) {
+            if (roundUp) {
+                return ((min + max) + 1) / 2;
+            } else {
+                return (min + max) / 2;
             }
         }
+    }
 }

@@ -1,10 +1,6 @@
 package dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day7;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Hand implements Comparable<Hand> {
     private static final int CARDS_PER_HAND = 5;

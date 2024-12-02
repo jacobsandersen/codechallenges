@@ -13,25 +13,6 @@ public class Day2 extends Day {
         super(2024, 2, "Red-Nosed Reports");
     }
 
-    record Report(List<Integer> levels) {
-        boolean adjacentDifferencesWithinLimits() {
-            return CombinatoricsUtil.overlappingPartitionList(levels, 2)
-                    .stream()
-                    .allMatch(partition -> {
-                        int difference = Math.abs(partition.get(0) - partition.get(1));
-                        return difference >= 1 && difference <= 3;
-                    });
-        }
-
-        boolean isSafe() {
-            return MathUtil.isMonotonic(levels) && adjacentDifferencesWithinLimits();
-        }
-
-        boolean isSafeIfDampened() {
-            return CombinatoricsUtil.generateSublists(levels, levels.size() - 1).stream().anyMatch(lst -> new Report(lst).isSafe());
-        }
-    }
-
     Stream<Report> getReports() {
         return getInputLinesStreamNoBlanks()
                 .mapMulti((line, consumer) -> {
@@ -52,5 +33,24 @@ public class Day2 extends Day {
     @Override
     public String partTwo() {
         return String.valueOf(getReports().filter(rpt -> rpt.isSafe() || rpt.isSafeIfDampened()).count());
+    }
+
+    record Report(List<Integer> levels) {
+        boolean adjacentDifferencesWithinLimits() {
+            return CombinatoricsUtil.overlappingPartitionList(levels, 2)
+                    .stream()
+                    .allMatch(partition -> {
+                        int difference = Math.abs(partition.get(0) - partition.get(1));
+                        return difference >= 1 && difference <= 3;
+                    });
+        }
+
+        boolean isSafe() {
+            return MathUtil.isMonotonic(levels) && adjacentDifferencesWithinLimits();
+        }
+
+        boolean isSafeIfDampened() {
+            return CombinatoricsUtil.generateSublists(levels, levels.size() - 1).stream().anyMatch(lst -> new Report(lst).isSafe());
+        }
     }
 }
