@@ -3,7 +3,6 @@ package dev.jacobandersen.codechallenges.challenge.adventofcode.year2015.day4;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.Day;
 import dev.jacobandersen.codechallenges.util.StringUtil;
 
-import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

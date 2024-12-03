@@ -1,7 +1,8 @@
 package dev.jacobandersen.codechallenges.util;
 
 public class StringUtil {
-    private StringUtil() {}
+    private StringUtil() {
+    }
 
     public static String toHex(byte[] bytes) {
         final StringBuilder builder = new StringBuilder();

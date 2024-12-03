@@ -48,9 +48,9 @@ public class Day4 extends Day {
         static Card create(String line) {
             String[] split = line.split(":");
             String[] items = split[1].trim().split("\\|");
-            int number = Integer.parseInt(split[0].replaceAll("\s+", "\s").split(" ")[1]);
-            Set<Integer> winning = Arrays.stream(items[0].trim().replaceAll("\s+", "\s").split(" ")).map(Integer::parseInt).collect(Collectors.toSet());
-            Set<Integer> have = Arrays.stream(items[1].trim().replaceAll("\s+", "\s").split(" ")).map(Integer::parseInt).collect(Collectors.toSet());
+            int number = Integer.parseInt(split[0].replaceAll(" +", " ").split(" ")[1]);
+            Set<Integer> winning = Arrays.stream(items[0].trim().replaceAll(" +", " ").split(" ")).map(Integer::parseInt).collect(Collectors.toSet());
+            Set<Integer> have = Arrays.stream(items[1].trim().replaceAll(" +", " ").split(" ")).map(Integer::parseInt).collect(Collectors.toSet());
             return new Card(number, winning, have);
         }
 

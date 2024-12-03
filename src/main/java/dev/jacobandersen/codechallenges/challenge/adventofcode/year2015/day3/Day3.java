@@ -1,7 +1,6 @@
 package dev.jacobandersen.codechallenges.challenge.adventofcode.year2015.day3;
 
 import dev.jacobandersen.codechallenges.challenge.adventofcode.Day;
-import dev.jacobandersen.codechallenges.challenge.adventofcode.year2023.day5.Map;
 import dev.jacobandersen.codechallenges.util.Pair;
 
 import java.util.HashSet;
@@ -9,11 +8,11 @@ import java.util.List;
 import java.util.Set;
 
 public class Day3 extends Day {
+    private final Set<Pair<Integer, Integer>> visitedCoordinates = new HashSet<>();
+
     public Day3() {
         super(2015, 3, "Perfectly Spherical Houses in a Vacuum");
     }
-
-    private final Set<Pair<Integer, Integer>> visitedCoordinates = new HashSet<>();
 
     private Pair<Integer, Integer> processInstruction(Pair<Integer, Integer> start, String instruction) {
         return switch (instruction) {
@@ -54,7 +53,7 @@ public class Day3 extends Day {
         visitedCoordinates.addAll(List.of(santaLast, robotLast)); // for consistency
 
         String[] instructions = getInputLinesNoBlanks().get(0).split("");
-        for (int i = 0; i < instructions.length; i+=2) {
+        for (int i = 0; i < instructions.length; i += 2) {
             santaLast = processInstruction(santaLast, instructions[i]);
             robotLast = processInstruction(robotLast, instructions[i + 1]);
             visitedCoordinates.addAll(List.of(santaLast, robotLast));

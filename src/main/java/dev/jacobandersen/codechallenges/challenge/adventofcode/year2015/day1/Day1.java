@@ -25,6 +25,6 @@ public class Day1 extends Day {
             }
         }
 
-        return String.valueOf("Never reached basement.");
+        return "Never reached basement.";
     }
 }

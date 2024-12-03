@@ -15,7 +15,7 @@ public class Problem1_CountingDNANucleotides extends StringAlgorithmChallenge {
         int T = 0;
 
         for (String line : getInputLinesStream().filter(line -> !line.isBlank()).toList()) {
-            for (int j = 0; j < line.toCharArray().length; j++) {
+            for (int j = 0; j < line.length(); j++) {
                 switch (line.charAt(j)) {
                     case 'A':
                         A++;

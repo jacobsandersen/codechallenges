@@ -11,6 +11,7 @@ public class Grid<T> {
     private final List<List<T>> grid;
     private int currentRow;
     private int currentCol;
+
     public Grid(int rows, int cols, List<List<T>> grid) {
         this(rows, cols, 0, 0, grid);
     }
