@@ -5,6 +5,7 @@ import dev.jacobandersen.codechallenges.challenge.adventofcode.year2015.day1.Day
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2015.day2.Day2;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2015.day3.Day3;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2015.day4.Day4;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2015.day5.Day5;
 
 import java.util.List;
 
@@ -14,7 +15,9 @@ public class Year2015 {
                 new Day1(),
                 new Day2(),
                 new Day3(),
-                new Day4()
+//              Omitted normally, Day 4 is very slow due to MD5 bruteforce requirement
+//                new Day4(),
+                new Day5()
         );
     }
 }
