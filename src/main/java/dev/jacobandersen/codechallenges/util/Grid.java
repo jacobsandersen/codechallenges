@@ -129,6 +129,7 @@ public class Grid<T> {
             case EAST -> moveEast();
             case WEST -> moveWest();
             case SOUTH -> moveSouth();
+            default -> this;
         };
     }
 
@@ -138,6 +139,7 @@ public class Grid<T> {
             case EAST -> peekEast();
             case WEST -> peekWest();
             case SOUTH -> peekSouth();
+            default -> peek(currentRow, currentCol);
         };
     }
 
