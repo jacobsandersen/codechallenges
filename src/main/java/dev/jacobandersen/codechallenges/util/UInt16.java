@@ -11,12 +11,12 @@ public class UInt16 {
         this.inner = value;
     }
 
-    public void setValue(char value) {
-        this.inner = value;
-    }
-
     public char getValue() {
         return (char) this.inner;
+    }
+
+    public void setValue(char value) {
+        this.inner = value;
     }
 
     public UInt16 logicalAnd(UInt16 other) {
@@ -41,6 +41,6 @@ public class UInt16 {
 
     @Override
     public String toString() {
-        return String.valueOf((int)getValue());
+        return String.valueOf((int) getValue());
     }
 }
