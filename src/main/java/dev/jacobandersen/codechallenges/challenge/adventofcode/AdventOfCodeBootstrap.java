@@ -1,6 +1,5 @@
 package dev.jacobandersen.codechallenges.challenge.adventofcode;
 
-import dev.jacobandersen.codechallenges.challenge.adventofcode.year2015.Year2015;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.Year2024;
 
 public class AdventOfCodeBootstrap {
