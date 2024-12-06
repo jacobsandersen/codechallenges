@@ -6,6 +6,7 @@ import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day2.Day
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day3.Day3;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day4.Day4;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day5.Day5;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day6.Day6;
 
 import java.util.List;
 
@@ -16,7 +17,8 @@ public class Year2024 {
                 new Day2(),
                 new Day3(),
                 new Day4(),
-                new Day5()
+                new Day5(),
+                new Day6()
         );
     }
 }

@@ -12,6 +12,7 @@ repositories {
 dependencies {
     implementation("org.apache.commons:commons-text:1.12.0")
     implementation("org.apache.commons:commons-lang3:3.17.0")
+    implementation("org.jgrapht:jgrapht-core:1.5.2")
     testImplementation(platform("org.junit:junit-bom:5.9.1"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

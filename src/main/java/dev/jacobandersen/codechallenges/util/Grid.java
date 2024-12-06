@@ -1,11 +1,12 @@
 package dev.jacobandersen.codechallenges.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Grid<T> {
+public class Grid<T extends Comparable<T>> {
     private final int rows;
     private final int cols;
     private final List<List<T>> grid;
@@ -24,7 +25,7 @@ public class Grid<T> {
         this.grid = grid;
     }
 
-    public static <T> Grid<T> create(Stream<String> input, Function<String, List<T>> mapper) {
+    public static <T extends Comparable<T>> Grid<T> create(Stream<String> input, Function<String, List<T>> mapper) {
         final List<List<T>> grid = input.map(mapper).collect(Collectors.toList());
         if (!grid.stream().map(List::size).allMatch(size -> grid.get(0).size() == size)) {
             throw new IllegalArgumentException("Received grid had rows with varying columns - invalid");
@@ -49,21 +50,28 @@ public class Grid<T> {
         return currentCol;
     }
 
+    public Pair<Integer, Integer> getCurrentPos() {
+        return Pair.of(getCurrentRow(), getCurrentCol());
+    }
+
     public T get() {
         return grid.get(currentRow).get(currentCol);
     }
 
-    public void set(T value) {
+    public Grid<T> set(T value) {
         grid.get(currentRow).set(currentCol, value);
+        return this;
     }
 
-    public void move(int row, int col) {
+    public Grid<T> move(int row, int col) {
         if (row < 0 || row >= rows || col < 0 || col >= cols) {
             throw new IllegalArgumentException("Tried to move current cell beyond boundaries");
         }
 
         currentRow = row;
         currentCol = col;
+
+        return this;
     }
 
     public T peek(int row, int col) {
@@ -153,7 +161,17 @@ public class Grid<T> {
     }
 
     public Grid<T> copy() {
-        return new Grid<>(rows, cols, currentRow, currentCol, grid);
+        List<List<T>> copy = new ArrayList<>(rows);
+
+        for (int row = 0; row < rows; row++) {
+            copy.add(new ArrayList<>(cols));
+
+            for (int col = 0; col < cols; col++) {
+                copy.get(row).add(grid.get(row).get(col));
+            }
+        }
+
+        return new Grid<>(rows, cols, currentRow, currentCol, copy);
     }
 
     @Override

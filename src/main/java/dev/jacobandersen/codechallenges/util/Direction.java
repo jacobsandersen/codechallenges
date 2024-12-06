@@ -32,4 +32,14 @@ public enum Direction {
             case NORTH_WEST -> SOUTH_EAST;
         };
     }
+
+    public final Direction getCardinalClockwiseAdjacent() {
+        return switch (this) {
+            case NORTH -> EAST;
+            case EAST -> SOUTH;
+            case SOUTH -> WEST;
+            case WEST -> NORTH;
+            default -> this;
+        };
+    }
 }
