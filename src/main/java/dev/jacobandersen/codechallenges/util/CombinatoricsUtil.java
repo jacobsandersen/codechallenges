@@ -50,4 +50,39 @@ public class CombinatoricsUtil {
                 .filter(l -> !l.isEmpty())
                 .collect(Collectors.toList());
     }
+
+    public static <T> List<List<T>> selfCartesianProduct(List<T> set, int nTimes) {
+        List<List<T>> target = new ArrayList<>();
+        for (int i = 0; i < nTimes; i++) {
+            target.add(set);
+        }
+
+        return cartesianProduct(target);
+    }
+
+    public static <T> List<List<T>> cartesianProduct(List<List<T>> sets) {
+        List<List<T>> result = new ArrayList<>();
+
+        if (sets == null || sets.isEmpty()) {
+            return result;
+        }
+
+        result.add(new ArrayList<>());
+
+        for (List<T> set : sets) {
+            List<List<T>> temp = new ArrayList<>();
+
+            for (List<T> current : result) {
+                for (T item : set) {
+                    List<T> newCombination = new ArrayList<>(current);
+                    newCombination.add(item);
+                    temp.add(newCombination);
+                }
+            }
+
+            result = temp;
+        }
+
+        return result;
+    }
 }
