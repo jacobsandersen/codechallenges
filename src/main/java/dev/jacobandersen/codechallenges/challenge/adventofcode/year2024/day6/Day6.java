@@ -32,7 +32,7 @@ public class Day6 extends Day {
             String ahead = grid.peek(currentDirection);
             if (ahead == null) break;
             else while (ahead.equals("#")) {
-                currentDirection = currentDirection.getCardinalClockwiseAdjacent();
+                currentDirection = currentDirection.getCardinalRight();
                 ahead = grid.peek(currentDirection);
             }
 

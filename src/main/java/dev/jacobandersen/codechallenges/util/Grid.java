@@ -2,7 +2,9 @@ package dev.jacobandersen.codechallenges.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -72,6 +74,10 @@ public class Grid<T extends Comparable<T>> {
         currentCol = col;
 
         return this;
+    }
+
+    public Grid<T> move(Pair<Integer, Integer> pos) {
+        return move(pos.first(), pos.second());
     }
 
     public T peek(int row, int col) {
@@ -160,6 +166,31 @@ public class Grid<T extends Comparable<T>> {
         return position;
     }
 
+    public void forEach(Consumer<PositionContext<T>> consumer) {
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                consumer.accept(new PositionContext<>(grid.get(row).get(col), new Pair<>(row, col)));
+            }
+        }
+    }
+
+    public <R extends Comparable<R>> Grid<R> map(Function<PositionContext<T>, R> mapper) {
+        Grid<R> output = new Grid<>(rows, cols, new ArrayList<>());
+
+        for (int row = 0; row < rows; row++) {
+            output.grid.add(new ArrayList<>());
+            for (int col = 0; col < cols; col++) {
+                output.grid.get(row).add(mapper.apply(new PositionContext<>(grid.get(row).get(col), new Pair<>(row, col))));
+            }
+        }
+
+        return output;
+    }
+
+    public List<List<T>> getBackingList() {
+        return copy().grid;
+    }
+
     public Grid<T> copy() {
         List<List<T>> copy = new ArrayList<>(rows);
 
@@ -177,16 +208,18 @@ public class Grid<T extends Comparable<T>> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("Grid {\n" +
-                "  rows =" + rows + "\n" +
-                "  cols =" + cols + "\n" +
-                "  currentRow =" + currentRow + "\n" +
-                "  currentCol =" + currentCol + "\n" +
-                "  grid = {\n");
+                "\trows = " + rows + "\n" +
+                "\tcols = " + cols + "\n" +
+                "\tcurrentRow = " + currentRow + "\n" +
+                "\tcurrentCol = " + currentCol + "\n" +
+                "\tgrid = {\n");
 
-        grid.forEach(row -> builder.append("    ").append(row).append("\n"));
+        grid.forEach(row -> builder.append("\t\t").append(row).append("\n"));
 
-        builder.append("}");
+        builder.append("\t}\n}");
 
         return builder.toString();
     }
+
+    public record PositionContext<T>(T value, Pair<Integer, Integer> position) {}
 }

@@ -6,7 +6,7 @@ import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day2.Day
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day3.Day3;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day4.Day4;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day5.Day5;
-import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day7.Day7;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day8.Day8;
 
 import java.util.List;
 
@@ -20,7 +20,9 @@ public class Year2024 {
                 new Day5(),
 //                Day 6 is slow. I'll try to fix it later.
 //                new Day6(),
-                new Day7()
+//                Also slow. Problem for later.
+//                new Day7(),
+                new Day8()
         );
     }
 }
