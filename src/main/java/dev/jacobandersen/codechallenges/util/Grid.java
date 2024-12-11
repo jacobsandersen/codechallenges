@@ -88,6 +88,10 @@ public class Grid<T extends Comparable<T>> {
         return grid.get(row).get(col);
     }
 
+    public T peek(Pair<Integer, Integer> pos) {
+        return peek(pos.first(), pos.second());
+    }
+
     public Grid<T> moveNorth() {
         move(currentRow - 1, currentCol);
         return this;

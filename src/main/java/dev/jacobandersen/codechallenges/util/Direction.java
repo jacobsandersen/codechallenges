@@ -42,4 +42,8 @@ public enum Direction {
             default -> this;
         };
     }
+
+    public static Direction[] cardinalValues() {
+        return new Direction[] { NORTH, EAST, SOUTH, WEST };
+    }
 }
