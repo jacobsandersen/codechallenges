@@ -87,5 +87,22 @@ public class MathUtil {
         return points;
     }
 
+    public static int countDigits(final long in) {
+        int length = 0;
+        long temp = 1;
+
+        while (temp <= in) {
+            length++;
+            temp *= 10;
+        }
+
+        return length;
+    }
+
+    public static List<Long> split(final long in, final long digits) {
+        final long half = (long) Math.pow(10d, (double) digits / 2);
+        return List.of(in / half, in % half);
+    }
+
     public record Slope(int rise, int run) {}
 }
