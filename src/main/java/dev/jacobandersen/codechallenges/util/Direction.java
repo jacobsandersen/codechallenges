@@ -33,6 +33,16 @@ public enum Direction {
         };
     }
 
+    public final Direction getCardinalLeft() {
+        return switch (this) {
+            case NORTH -> WEST;
+            case WEST -> SOUTH;
+            case SOUTH -> EAST;
+            case EAST -> NORTH;
+            default -> this;
+        };
+    }
+
     public final Direction getCardinalRight() {
         return switch (this) {
             case NORTH -> EAST;

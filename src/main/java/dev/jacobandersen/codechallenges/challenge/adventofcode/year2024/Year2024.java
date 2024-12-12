@@ -4,6 +4,7 @@ import dev.jacobandersen.codechallenges.challenge.adventofcode.Day;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day1.Day1;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day10.Day10;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day11.Day11;
+import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day12.Day12;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day2.Day2;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day3.Day3;
 import dev.jacobandersen.codechallenges.challenge.adventofcode.year2024.day4.Day4;
@@ -28,7 +29,8 @@ public class Year2024 {
                 new Day8(),
                 new Day9(),
                 new Day10(),
-                new Day11()
+                new Day11(),
+                new Day12()
         );
     }
 }

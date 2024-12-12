@@ -209,6 +209,10 @@ public class Grid<T extends Comparable<T>> {
         return new Grid<>(rows, cols, currentRow, currentCol, copy);
     }
 
+    public boolean contains(Pair<Integer, Integer> position) {
+        return position.first() >= 0 && position.first() < rows && position.second() >= 0 && position.second() < cols;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("Grid {\n" +
