@@ -71,7 +71,32 @@ public class Day12 extends Day {
         );
     }
 
-    record Plot(String crop, int y, int x) {
+    record Plot(String crop, int y, int x) implements Comparable<Plot> {
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (obj == null || getClass() != obj.getClass()) return false;
+            Plot that = (Plot) obj;
+            return crop.equals(that.crop) && y == that.y && x == that.x;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(crop(), y(), x());
+        }
+
+        public boolean areAdjacent(Plot other) {
+            return (Math.abs(y - other.y) == 1 && x == other.x) || (Math.abs(x - other.x) == 1 && y == other.y);
+        }
+
+        @Override
+        public int compareTo(Plot other) {
+            if (y == other.y) {
+                return Integer.compare(x, other.x);
+            }
+
+            return Integer.compare(y, other.y);
+        }
     }
 
     record Region(List<Plot> plots) {
@@ -96,12 +121,71 @@ public class Day12 extends Day {
             return area() * perimeter();
         }
 
+        // sort edge points by y, then by x, such that (0,0) < (0,1) < (2,0)
+        // start at top left of shape (y, x), move up such that now at (y-1, x), save this as "start"
+        // copy "start" into a position pointer called "ptr"
+
+        // set "movingDirection" = right
+        // set "observingDirection" = down (should point at (y,x), the top left of the shape)
+        // set "sideCount" = 0
+
+        // continue looping until "ptr" == "start" (do-while):
+        //   - set "nextPos" = peek("ptr", "movingDirection")
+        //   - if "nextPos" is NOT in the region:
+        //     - set "ptr" = move("ptr", "movingDirection")
+        //     - set "observedPos" = peek("ptr", "observingDirection")
+        //     - if "observedPos" is NOT in the region: [we have moved off an edge, only way is to turn right, or clockwise]
+        //       - increment "sideCount"
+        //       - set "movingDirection" = clockwiseOf("movingDirection") [right should become down]
+        //       - set "observingDirection" = clockwiseOf("observingDirection") [down should become left]
+        //       - continue loop
+        //   - else: [we're at a corner, only way is to turn left, or counterclockwise]
+        //     - increment "sideCount"
+        //     - set "movingDirection" = counterclockwiseOf("movingDirection") [right should become up]
+        //     - set "observingDirection" = counterclockwiseOf("observingDirection") [down should become right]
+        //     - continue loop
+        // return "sideCount"
+
         public int sides() {
-            return 0;
+            final List<Pair<Integer, Integer>> points = plots.stream().map(plot -> Pair.of(plot.y, plot.x)).toList();
+            final Pair<Integer, Integer> start = Pair.of(points.get(0).first() - 1, points.get(0).second());
+
+            Pair<Integer, Integer> ptr = start.copy();
+
+            Direction movingDirection = Direction.EAST;
+            Direction observingDirection = Direction.SOUTH;
+
+            int sideCount = 0;
+
+            do {
+                Pair<Integer, Integer> movingRel = movingDirection.relativeCoordinate(), observingRel = observingDirection.relativeCoordinate();
+                Pair<Integer, Integer> nextPos = Pair.of(ptr.first() + movingRel.first(), ptr.second() + movingRel.second());
+                if (!points.contains(nextPos)) {
+                    ptr = nextPos;
+
+                    Pair<Integer, Integer> observedPos = Pair.of(ptr.first() + observingRel.first(), ptr.second() + observingRel.second());
+                    if (!points.contains(observedPos)) {
+                        sideCount++;
+                        movingDirection = movingDirection.getCardinalRight();
+                        observingDirection = observingDirection.getCardinalRight();
+                    }
+                } else {
+                    sideCount++;
+                    movingDirection = movingDirection.getCardinalLeft();
+                    observingDirection = observingDirection.getCardinalLeft();
+                }
+            } while (!ptr.equals(start));
+
+            return sideCount;
         }
 
         public int discountedFencePrice() {
-            return area() * sides();
+            System.out.printf("region: %s%n", this.plots.get(0).crop);
+            int area = area();
+            System.out.printf("  area = %d%n", area);
+            int sides = sides();
+            System.out.printf("  sides = %d%n", sides);
+            return area * sides;
         }
     }
 }
