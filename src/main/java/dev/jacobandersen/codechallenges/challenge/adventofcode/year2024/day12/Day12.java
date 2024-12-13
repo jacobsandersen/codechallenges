@@ -85,10 +85,6 @@ public class Day12 extends Day {
             return Objects.hash(crop(), y(), x());
         }
 
-        public boolean areAdjacent(Plot other) {
-            return (Math.abs(y - other.y) == 1 && x == other.x) || (Math.abs(x - other.x) == 1 && y == other.y);
-        }
-
         @Override
         public int compareTo(Plot other) {
             if (y == other.y) {
