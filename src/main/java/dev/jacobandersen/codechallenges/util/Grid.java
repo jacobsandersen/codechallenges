@@ -65,6 +65,18 @@ public class Grid<T extends Comparable<T>> {
         return this;
     }
 
+    public T get(int row, int col) {
+        return grid.get(row).get(col);
+    }
+
+    public T getOrNull(int row, int col) {
+        try {
+            return get(row, col);
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+    }
+
     public Grid<T> move(int row, int col) {
         if (row < 0 || row >= rows || col < 0 || col >= cols) {
             throw new IllegalArgumentException("Tried to move current cell beyond boundaries");

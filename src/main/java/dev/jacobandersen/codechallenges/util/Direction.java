@@ -56,4 +56,8 @@ public enum Direction {
     public static Direction[] cardinalValues() {
         return new Direction[] { NORTH, EAST, SOUTH, WEST };
     }
+
+    public static Direction[] diagonalValues() {
+        return new Direction[] { NORTH_EAST, NORTH_WEST, SOUTH_EAST, SOUTH_WEST };
+    }
 }
