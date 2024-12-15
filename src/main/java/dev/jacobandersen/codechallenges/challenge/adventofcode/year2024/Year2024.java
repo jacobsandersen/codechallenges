@@ -34,6 +34,7 @@ public class Year2024 {
                 new Day11(),
                 new Day12(),
                 new Day13()
+//                Day 6 part 2 is slow due to slow update algorithm
 //                new Day14()
         );
     }

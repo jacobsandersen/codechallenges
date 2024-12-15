@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Grid<T extends Comparable<T>> {
+public class Grid<T> {
     private final int rows;
     private final int cols;
     private final List<List<T>> grid;
@@ -27,13 +27,25 @@ public class Grid<T extends Comparable<T>> {
         this.grid = grid;
     }
 
-    public static <T extends Comparable<T>> Grid<T> create(Stream<String> input, Function<String, List<T>> mapper) {
+    public static <T> Grid<T> create(Stream<String> input, Function<String, List<T>> mapper) {
         final List<List<T>> grid = input.map(mapper).collect(Collectors.toList());
         if (!grid.stream().map(List::size).allMatch(size -> grid.get(0).size() == size)) {
             throw new IllegalArgumentException("Received grid had rows with varying columns - invalid");
         }
 
         return new Grid<>(grid.size(), grid.get(0).size(), grid);
+    }
+
+    public static <T> Grid<T> emptyGrid(int rows, int cols, Supplier<T> initializer) {
+        final List<List<T>> grid = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            grid.add(new ArrayList<>());
+            for (int j = 0; j < cols; j++) {
+                grid.get(i).add(initializer.get());
+            }
+        }
+
+        return new Grid<>(rows, cols, grid);
     }
 
     public int getRows() {
@@ -56,17 +68,44 @@ public class Grid<T extends Comparable<T>> {
         return Pair.of(getCurrentRow(), getCurrentCol());
     }
 
-    public T get() {
-        return grid.get(currentRow).get(currentCol);
+    public Grid<T> set(T value) {
+        return set(currentRow, currentCol, value);
     }
 
-    public Grid<T> set(T value) {
-        grid.get(currentRow).set(currentCol, value);
+    public Grid<T> set(Pair<Integer, Integer> pos, T value) {
+        return set(pos.first(), pos.second(), value);
+    }
+
+    public Grid<T> set(int row, int col, T value) {
+        grid.get(row).set(col, value);
         return this;
     }
 
-    public T get(int row, int col) {
-        return grid.get(row).get(col);
+    public Pair<Integer, Integer> locateWrappedPosition(int targetRow, int targetCol) {
+        int wrappedRow = targetRow;
+        int wrappedCol = targetCol;
+
+        if (wrappedRow < 0) {
+            wrappedRow = (wrappedRow % rows + rows) % rows;
+        } else if (wrappedRow >= rows) {
+            wrappedRow = wrappedRow % rows;
+        }
+
+        if (wrappedCol < 0) {
+            wrappedCol = (wrappedCol % cols + cols) % cols;
+        } else if (wrappedCol >= cols) {
+            wrappedCol = wrappedCol % cols;
+        }
+
+        return Pair.of(wrappedRow, wrappedCol);
+    }
+
+    public T get() {
+        return get(currentRow, currentCol);
+    }
+
+    public T getOrNull(Pair<Integer, Integer> pos) {
+        return getOrNull(pos.first(), pos.second());
     }
 
     public T getOrNull(int row, int col) {
@@ -75,6 +114,14 @@ public class Grid<T extends Comparable<T>> {
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
+    }
+
+    public T get(Pair<Integer, Integer> pos) {
+        return get(pos.first(), pos.second());
+    }
+
+    public T get(int row, int col) {
+        return grid.get(row).get(col);
     }
 
     public Grid<T> move(int row, int col) {
@@ -203,10 +250,6 @@ public class Grid<T extends Comparable<T>> {
         return output;
     }
 
-    public List<List<T>> getBackingList() {
-        return copy().grid;
-    }
-
     public Grid<T> copy() {
         List<List<T>> copy = new ArrayList<>(rows);
 
@@ -223,6 +266,31 @@ public class Grid<T extends Comparable<T>> {
 
     public boolean contains(Pair<Integer, Integer> position) {
         return position.first() >= 0 && position.first() < rows && position.second() >= 0 && position.second() < cols;
+    }
+
+    public List<Grid<T>> getQuadrants() {
+        int midRow = rows / 2, midCol = cols / 2;
+
+        Grid<T> q1 = extractSubgrid(0, midRow, 0, midCol);
+        Grid<T> q2 = extractSubgrid(0, midRow, midCol + 1, cols);
+        Grid<T> q3 = extractSubgrid(midRow + 1, rows, 0, midCol);
+        Grid<T> q4 = extractSubgrid(midRow + 1, rows, midCol + 1, cols);
+
+        return List.of(q1, q2, q3, q4);
+    }
+
+    private Grid<T> extractSubgrid(int startRow, int endRow, int startCol, int endCol) {
+        Grid<T> subgrid = Grid.emptyGrid(endRow - startRow, endCol - startCol, () -> null);
+        for (int i = startRow; i < endRow; i++) {
+            for (int j = startCol; j < endCol; j++) {
+                subgrid.set(i - startRow, j - startCol, get(i, j));
+            }
+        }
+        return subgrid;
+    }
+
+    public List<List<T>> getBackingList() {
+        return grid;
     }
 
     @Override
