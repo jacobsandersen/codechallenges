@@ -1,5 +1,6 @@
 package dev.jacobandersen.codechallenges.util;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -76,6 +77,12 @@ public class Grid<T> {
         return set(pos.first(), pos.second(), value);
     }
 
+    public Grid<T> set(Direction direction, T value) {
+        Pair<Integer, Integer> rel = direction.relativeCoordinate();
+        return set(currentRow + rel.first(), currentCol + rel.second(), value);
+    }
+
+
     public Grid<T> set(int row, int col, T value) {
         grid.get(row).set(col, value);
         return this;
@@ -120,8 +127,25 @@ public class Grid<T> {
         return get(pos.first(), pos.second());
     }
 
+    public T get(Direction direction) {
+        Pair<Integer, Integer> rel = direction.relativeCoordinate();
+        return get(currentRow + rel.first(), currentCol + rel.second());
+    }
+
     public T get(int row, int col) {
         return grid.get(row).get(col);
+    }
+
+    public T peek(int row, int col) {
+        if (row < 0 || row >= rows || col < 0 || col >= cols) {
+            return null;
+        }
+
+        return grid.get(row).get(col);
+    }
+
+    public T peek(Pair<Integer, Integer> pos) {
+        return peek(pos.first(), pos.second());
     }
 
     public Grid<T> move(int row, int col) {
@@ -137,18 +161,6 @@ public class Grid<T> {
 
     public Grid<T> move(Pair<Integer, Integer> pos) {
         return move(pos.first(), pos.second());
-    }
-
-    public T peek(int row, int col) {
-        if (row < 0 || row >= rows || col < 0 || col >= cols) {
-            return null;
-        }
-
-        return grid.get(row).get(col);
-    }
-
-    public T peek(Pair<Integer, Integer> pos) {
-        return peek(pos.first(), pos.second());
     }
 
     public Grid<T> moveNorth() {
@@ -210,6 +222,13 @@ public class Grid<T> {
         };
     }
 
+    public Grid<T> move(Direction direction, int times) {
+        for (int i = 0; i < times; i++) {
+            move(direction);
+        }
+        return this;
+    }
+
     public T peek(Direction direction) {
         return switch (direction) {
             case NORTH -> peekNorth();
@@ -218,6 +237,22 @@ public class Grid<T> {
             case SOUTH -> peekSouth();
             default -> peek(currentRow, currentCol);
         };
+    }
+
+    public T[] peek(Direction direction, int steps) {
+        Pair<Integer, Integer> pos = getCurrentPos();
+
+        @SuppressWarnings("unchecked")
+        final T[] out = (T[]) new Object[steps];
+
+        for (int i = 0; i < steps; i++) {
+            T val = peek(direction);
+            out[i] = val;
+            if (val == null) break;
+        }
+
+        move(pos);
+        return out;
     }
 
     public int[] peekPosition(Direction direction) {
@@ -291,6 +326,13 @@ public class Grid<T> {
 
     public List<List<T>> getBackingList() {
         return grid;
+    }
+
+    public void printSimple() {
+        getBackingList().forEach(lst -> {
+            lst.forEach(System.out::print);
+            System.out.println();
+        });
     }
 
     @Override
